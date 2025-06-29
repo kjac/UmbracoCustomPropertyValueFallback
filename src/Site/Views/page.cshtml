@@ -1,0 +1,41 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Page>
+@{
+	Layout = null;
+}
+<html lang="en">
+<head>
+	<title>Custom fallback for property values</title>
+</head>
+<body>
+<nav>
+	Go to culture: <a href="/en-us">en-US</a> | <a href="/en-gb">en-GB</a> | <a href="/da-dk">da-DK</a>
+</nav>
+<fieldset>
+	<legend>Title</legend>
+	@Model.Title
+</fieldset>
+<fieldset>
+	<legend>Text</legend>
+	@Model.Text
+</fieldset>
+<fieldset>
+	<legend>Blocks</legend>
+	@{
+		var blocks = Model.Blocks;
+		if (blocks is not null)
+		{
+			<ul>
+				@foreach (var block in blocks)
+				{
+					<li><b>Title:</b> @block.Content.Value("title")</li>
+				}
+			</ul>
+		}
+		else
+		{
+			<i>No blocks found</i>
+		}
+	}
+</fieldset>
+</body>
+</html>
